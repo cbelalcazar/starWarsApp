@@ -1,0 +1,158 @@
+<div class="container app">
+  <!-- <div class="row">
+    <div class="col-sm-8">
+      <h1>{{title}}</h1>
+    </div>
+    <div class="col-sm-4">
+      <div class="alert alert-success alert dismissable">
+        <a href="#" class="close">
+          &times;
+        </a>
+        Mensaje
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+    </div>
+    <div class="col-sm-8">
+      <h2>Create Data:</h2>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="userId" class="control-label">
+            Id:
+          </label>
+          <input type="text" class="form-control" required placeholder="Enter a new name" id="userId" name="userId" [(ngModel)]="model.userId">
+        </div>
+        <div class="form-group">
+            <label for="title" class="control-label">
+              Title:
+            </label>
+            <input type="text" class="form-control" required id="title" placeholder="Enter a new position" name="title" [(ngModel)]="model.title">
+        </div>
+        <div class="form-group">
+            <label for="body" class="control-label">
+              Body:
+            </label>
+            <input type="text" class="form-control" required id="body" placeholder="Enter a new email" name="body" [(ngModel)]="model.body">
+        </div>
+        <div class="form-group">
+          <div class="col-sm-10 col-sm-offset-2">
+            <button *ngIf="model.index == undefined" type="submit" class="btn btn-success" (click)="addEmployee()">Agregar</button>
+            <button *ngIf="model.index != undefined" type="submit" class="btn btn-success" (click)="updateEmployee()">Actualizar</button>
+          </div>
+        </div>
+      </form>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="registro">Id del post:</label>
+          <input type="text" name="consulta" id="consulta" [(ngModel)]="consulta" class="form-control">
+        </div>
+        <div class="col-sm-10 col-sm-offset-2">
+          <button type="submit" (click)="consultar(consulta)" class="btn btn-info">Enviar</button>
+          <br>
+          <p>
+            Titulo : {{obtenido.title}}
+          </p>
+        </div>
+      </form>
+    </div>
+  </div> -->
+  <!-- Modal -->
+  <div class="modal fade  bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{objFilm.title}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p><strong>Fecha Lanzamiento: </strong>{{objFilm.created}}</p>
+            <p><strong>Director: </strong>{{objFilm.director}}</p>
+            <p><strong>Opening: </strong>{{objFilm.opening_crawl}}</p>
+            <p><strong>Productor: </strong>{{objFilm.producer}}</p>
+            <div *ngIf="!verNaves">
+              <h4>Personajes:</h4>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Genero</th>
+                    <th>Peso</th>
+                    <th>Altura</th>
+                    <th>Naves...</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="arrayCharacters.length == 0">
+                    <td colspan="6" style="align-text:center;">Cargando</td>
+                  </tr>
+                  <tr *ngFor="let character of arrayCharacters; let j = index">
+                    <td>{{character.name}}</td>
+                    <td>{{character.created}}</td>
+                    <td>{{character.gender}}</td>
+                    <td>{{character.mass}}</td>
+                    <td>{{character.height}}</td>
+                    <td> <button class="btn btn-success" (click)="getNaves(character)">Ver mas..</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div *ngIf="verNaves">
+                <h4>Naves de {{objCharacter.name}}:</h4>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Nombre Nave</th>
+                      <th>Modelo</th>
+                      <th>Clase</th>
+                      <th>Numero de Pasajeros</th>
+                      <th>Peliculas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngIf="starships.length == 0">
+                      <td colspan="6" style="align-text:center;">Cargando</td>
+                    </tr>
+                    <tr *ngFor="let starship of starships; let j = index">
+                      <td>{{starship.name}}</td>
+                      <td>{{starship.model}}</td>
+                      <td>{{starship.starship_class}}</td>
+                      <td>{{starship.passengers}}</td>
+                      <td></td></tr>
+                  </tbody>
+                </table>
+                <div class="form-group">
+                  <button class="btn btn-info" (click)="verNaves = !verNaves">Atras</button>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="h1">Películas Star Wars</p><hr>
+  <div class="row">
+    <div class="col-sm-6"  *ngFor="let film of films; let i = index">
+      <div class="card" style="width: 30rem;">
+          <img class="card-img-top" src="assets\{{i}}.jpg" alt="10">
+          <div class="card-body text-dark">
+            <h5 class="card-title">{{film.title}}</h5>
+            <p><strong>Fecha Lanzamiento: </strong>{{film.created}}</p>
+            <p><strong>Director: </strong>{{film.director}}</p>
+            <p><strong>Opening: </strong>{{film.opening_crawl}}</p>
+            <p><strong>Productor: </strong>{{film.producer}}</p>
+          </div>
+          <div class="card-body">
+            <a href="#" (click)="setObject(film)" class="card-link" data-toggle="modal" data-target="#exampleModal">Ver mas..</a>
+          </div>
+        </div>  
+    </div>
+  </div>
+</div>
